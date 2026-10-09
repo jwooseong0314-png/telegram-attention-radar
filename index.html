@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="Telegram Attention Radar" />
+  <title>Telegram Attention Radar</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand-wrap">
+        <div class="brand-logo">➤</div>
+        <div class="brand-text">
+          <div class="brand-title"><b>Telegram<br>Attention Radar</b></div>
+          <div class="version" id="versionBadge">v2.4</div>
+          <small>150개 채널 실시간 시장 관심도 분석</small>
+        </div>
+      </div>
+
+      <nav class="side-menu">
+        <button class="side-link active" data-scroll="dashboard">▣ <span>대시보드</span></button>
+        <button class="side-link" data-scroll="report">◷ <span>시간별 리포트</span></button>
+        <button class="side-link" data-period-side="today">☾ <span>새벽 BEST</span></button>
+        <button class="side-link" data-period-side="today">▣ <span>일간 BEST</span></button>
+        <button class="side-link" data-period-side="week">▥ <span>주간 BEST</span></button>
+        <button class="side-link" data-period-side="month">♛ <span>월간 BEST</span></button>
+        <button class="side-link" data-scroll="attention">▥ <span>종목 트래킹</span></button>
+        <button class="side-link" data-scroll="posts">◫ <span>채널 현황</span></button>
+        <button class="side-link" id="settingsBtn">⚙ <span>설정</span></button>
+      </nav>
+
+      <div class="side-bottom">
+        <div><i class="dot live"></i> 자동 갱신 중</div>
+        <small id="sideUpdated">데이터 불러오는 중</small>
+      </div>
+    </aside>
+
+    <main class="main" id="dashboard">
+      <header class="top-nav">
+        <div class="mobile-brand"><span class="brand-logo small">➤</span><b>Attention Radar</b></div>
+        <div class="period-nav" id="periodTabs">
+          <button class="period-btn active" data-period="realtime">⚡ <span>실시간</span></button>
+          <button class="period-btn" data-period="today">☾ <span>새벽 BEST</span></button>
+          <button class="period-btn" data-period="today">▣ <span>일간 BEST</span></button>
+          <button class="period-btn" data-period="week">▥ <span>주간 BEST</span></button>
+          <button class="period-btn" data-period="month">♛ <span>월간 BEST</span></button>
+        </div>
+        <div class="update-group">
+          <div class="update-box"><i class="dot live"></i><span>마지막 업데이트</span><strong id="updatedAt">—</strong></div>
+          <div class="update-box next"><span class="refresh-icon">↻</span><span>다음 업데이트</span><strong id="nextAt">—</strong></div>
+        </div>
+      </header>
+
+      <section class="report-strip" id="report">
+        <div class="report-title">
+          <div class="clock-badge">◷</div>
+          <div><h1 id="reportTitle">— 리포트 <span class="live-tag">LIVE</span></h1><p><span id="reportChannels">수집 채널 —</span><i></i><span id="reportPosts">신규 게시물 —</span><i></i><span id="reportDone">분석 완료 —</span></p></div>
+        </div>
+        <div class="summary-kpis" id="summaryKpis"></div>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel top-posts-panel" id="posts">
+          <div class="panel-head">
+            <div class="head-title"><div class="rank-icon blue">01</div><div><h2>조회수 TOP 10</h2><small>해당 시간대 신규 게시물 기준</small></div></div>
+            <button class="ghost-btn">전체 보기 →</button>
+          </div>
+          <div id="topPosts" class="post-list"></div>
+        </article>
+
+        <article class="panel attention-panel" id="attention">
+          <div class="panel-head">
+            <div class="head-title"><div class="fire-icon">🔥</div><div><h2>지금 시장이 보는 종목 <em>TOP 5</em></h2><small>직전 1시간 대비 언급 증가 기준</small></div></div>
+            <button class="ghost-btn">전체 보기 →</button>
+          </div>
+          <div id="attentionList" class="attention-list"></div>
+        </article>
+
+        <article class="panel hot-panel">
+          <div class="panel-head">
+            <div class="head-title"><div class="star-icon">★</div><div><h2>HOT NOW TOP 5</h2><small>평소 대비 언급량이 급증한 이슈</small></div></div>
+            <button class="ghost-btn">전체 보기 →</button>
+          </div>
+          <div id="hotList" class="hot-list"></div>
+        </article>
+
+        <article class="panel market-panel">
+          <div class="market-block">
+            <div class="market-title"><div><span class="bars-icon">▥</span><b>주요 지수 현황</b><small id="marketTime">실시간 기준</small></div><button class="ghost-btn mini">전체보기 →</button></div>
+            <div class="index-grid" id="indexGrid"></div>
+          </div>
+          <div class="market-block themes">
+            <div class="market-title"><div><span class="leaf-icon">♨</span><b>주요 테마 상승/하락률</b><small>Telegram 언급 변화 기준</small></div><button class="ghost-btn mini">전체보기 →</button></div>
+            <div class="theme-grid">
+              <div class="theme-card up"><h3>🔥 상승 관심 TOP 5</h3><div id="themeUp"></div></div>
+              <div class="theme-card down"><h3>💧 하락 관심 TOP 5</h3><div id="themeDown"></div></div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <footer>Telegram Attention Radar · 공개 Telegram 게시물의 조회·공유·언급 데이터를 집계한 관심도 탐색 도구입니다.</footer>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">새 데이터로 갱신했습니다.</div>
+  <script src="app.js"></script>
+</body>
+</html>
